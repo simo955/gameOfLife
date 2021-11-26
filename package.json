@@ -1,0 +1,45 @@
+{
+  "name": "gameoflife",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "checkonly": "! grep -R '\\.only' tests/",
+    "coverage": "npm run unit -- --coverage-report=text-summary",
+    "postcoverage": "tap --coverage-report=lcov --no-browser",
+    "lint": "eslint . --ignore-path=.gitignore",
+    "start": "lc39 index.js",
+    "start:local": "npm start -- --env-path ./default.env",
+    "test": "npm run lint && npm run unit && npm run checkonly",
+    "update-docker-version": "sed -i.bck \"s|version=\\\"[0-9]*\\.[0-9]*\\.[0-9]*.*\\\"|version=\\\"${npm_package_version}\\\"|\" Dockerfile",
+    "update-changelog": "node ./scripts/update-changelog.js ${npm_package_version}",
+    "unit": "tap -b tests/*.test.js",
+    "version": "npm run update-changelog && npm run update-docker-version && rm -fr Dockerfile.bck && git add CHANGELOG.md Dockerfile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simo955/gameOfLife.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/simo955/gameOfLife/issues"
+  },
+  "homepage": "https://github.com/simo955/gameOfLife#readme",
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "tap": "^15.1.2"
+  },
+  "eslintConfig": {
+    "extends": "@mia-platform/eslint-config-mia"
+  },
+  "devDependencies": {
+    "@mia-platform/eslint-config-mia": "^3.0.0"
+  },
+  "tap": {
+    "check-coverage": false
+  }
+}
