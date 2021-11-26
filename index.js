@@ -5,6 +5,12 @@
 const lget = require('lodash.get')
 
 function gameOfLife(initConfig, steps) {
+  for (let i = 0; i < initConfig.length; i++) {
+    const column = initConfig[i]
+    for (let y = 0; y < initConfig.length; y++) {
+      const cell = column[y]
+    }
+  }
 }
 
 function getNumberOfAliveNeighbours(config, position) {
