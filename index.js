@@ -4,13 +4,49 @@
 
 const lget = require('lodash.get')
 
-function gameOfLife(initConfig, steps) {
-  for (let i = 0; i < initConfig.length; i++) {
-    const column = initConfig[i]
-    for (let y = 0; y < initConfig.length; y++) {
-      const cell = column[y]
-    }
+function gameOfLife(config, steps) {
+  if (steps === 0) {
+    return config
   }
+  const newConfig = executeStep(config)
+  return gameOfLife(newConfig, steps - 1)
+}
+
+function executeStep(config) {
+  return config.map((row, x) => {
+    return row.map((cell, y) => {
+      return nextState(config, { x, y })
+    })
+  })
+}
+
+function nextState(config, position) {
+  const numberOfAliveNeighbours = getNumberOfAliveNeighbours(config, position)
+  const currentState = isAlive(config, position)
+  if (currentState === 1) {
+    if (isUnderPopulation(numberOfAliveNeighbours) || isOvercrowding(numberOfAliveNeighbours)) {
+      return 0
+    }
+    return 1
+  }
+  if (currentState === 0) {
+    if (isReproduction(numberOfAliveNeighbours)) {
+      return 1
+    }
+    return 0
+  }
+}
+
+function isUnderPopulation(numberOfAliveNeighbours) {
+  return numberOfAliveNeighbours < 2
+}
+
+function isOvercrowding(numberOfAliveNeighbours) {
+  return numberOfAliveNeighbours > 3
+}
+
+function isReproduction(numberOfAliveNeighbours) {
+  return numberOfAliveNeighbours === 3
 }
 
 function getNumberOfAliveNeighbours(config, position) {
@@ -19,36 +55,21 @@ function getNumberOfAliveNeighbours(config, position) {
   if (x === null || y === null) {
     throw new Error('Missing position')
   }
-  const row = lget(config, x, [])
+  const row = lget(config, x, null)
   const value = lget(row, y, null)
   if (value === null) {
     throw new Error('Position out of bounds')
   }
   const neighboursPositions = getNeighboursPositions(position)
-  const numberOfAliveNeighbours = neighboursPositions.reduce((acc, neighbourPosition) => {
+  const numberOfAliveNeighbours = neighboursPositions.reduce((currentNumberOfAliveNeighbours, neighbourPosition) => {
     try {
-      const neighbourValue = isAlive(config, neighbourPosition)
-      return acc + neighbourValue
+      const neighbourState = isAlive(config, neighbourPosition)
+      return currentNumberOfAliveNeighbours + neighbourState
     } catch (error) {
-      return acc
+      return currentNumberOfAliveNeighbours
     }
   }, 0)
-
   return numberOfAliveNeighbours
-}
-
-function isAlive(config, position) {
-  const x = lget(position, 'x', null)
-  const y = lget(position, 'y', null)
-  if (x === null || y === null) {
-    throw new Error('Missing position')
-  }
-  const row = lget(config, x, [])
-  const value = lget(row, y, null)
-  if (value === null) {
-    throw new Error('Position out of bounds')
-  }
-  return value
 }
 
 function getNeighboursPositions(currentPosition) {
@@ -98,7 +119,24 @@ function getNeighboursPositions(currentPosition) {
   ]
 }
 
+function isAlive(config, position) {
+  const x = lget(position, 'x', null)
+  const y = lget(position, 'y', null)
+  if (x === null || y === null) {
+    throw new Error('Missing position')
+  }
+  const row = lget(config, x, null)
+  const value = lget(row, y, null)
+  if (value === null) {
+    throw new Error('Position out of bounds')
+  }
+  return value
+}
+
 module.exports = {
   getNumberOfAliveNeighbours,
   isAlive,
+  nextState,
+  executeStep,
+  gameOfLife,
 }

@@ -1,5 +1,5 @@
 {
-  "name": "gameoflife",
+  "name": "executeStep",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simo955/gameOfLife.git"
+    "url": "git+https://github.com/simo955/executeStep.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/simo955/gameOfLife/issues"
+    "url": "https://github.com/simo955/executeStep/issues"
   },
-  "homepage": "https://github.com/simo955/gameOfLife#readme",
+  "homepage": "https://github.com/simo955/executeStep#readme",
   "dependencies": {
     "lodash.get": "^4.4.2",
     "tap": "^15.1.2"
