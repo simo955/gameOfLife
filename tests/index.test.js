@@ -112,7 +112,6 @@ tap.test('getNumberOfAliveNeighbours', t => {
   t.end()
 })
 
-
 tap.test('nextState', t => {
   t.test('throws error because config is empy ', assert => {
     const config = [[]]
