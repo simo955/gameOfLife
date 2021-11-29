@@ -175,6 +175,7 @@ tap.test('nextState', t => {
   })
   t.test('Se DEAD rimane DEAD se ha un numero diverso di 3 vicini', assert => {
     const config = [[0, 0, 0], [1, 1, 0]]
+
     const position = {
       x: 0,
       y: 0,

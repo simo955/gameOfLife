@@ -56,6 +56,7 @@ function getNumberOfAliveNeighbours(config, position) {
     throw new Error('Missing position')
   }
   const row = lget(config, x, null)
+
   const value = lget(row, y, null)
   if (value === null) {
     throw new Error('Position out of bounds')

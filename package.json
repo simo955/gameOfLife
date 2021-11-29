@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simo955/executeStep.git"
+    "url": "git+https://github.com/simo955/gameOfLife.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/simo955/executeStep/issues"
+    "url": "https://github.com/simo955/gameOfLife/issues"
   },
-  "homepage": "https://github.com/simo955/executeStep#readme",
+  "homepage": "https://github.com/simo955/gameOfLife#readme",
   "dependencies": {
     "lodash.get": "^4.4.2",
     "tap": "^15.1.2"
